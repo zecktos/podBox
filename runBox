@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if podman ps | grep -w -q "$1"
+then
+    podman exec -it $1 /bin/bash
+else
+    podman start -ia $1
+fi
+

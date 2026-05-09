@@ -1,0 +1,3 @@
+echo "set overrides"
+DEVICE="--device /dev/ttyUSB0:/dev/ttyUSB0"
+PORT="-p 8008:8008" 

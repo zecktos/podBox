@@ -1,0 +1,43 @@
+#!/bin/bash
+
+USER_NAME="user"
+CODING_DIR="-v $HOME/Coding:/home/$USER_NAME/Coding"
+WRK_DIR="-v $HOME/wrk:/home/$USER_NAME/wrk"
+PORT="-p 1234:1234" 
+DEVICE=""
+USER_ID=$(id -u)
+GROUP_ID=$(id -g)
+OPT_ARGS=""
+OPT_BUILD_ARGS=""
+
+echo ""
+echo "prepare build"
+echo "---------------------"
+echo ""
+cp -v ./global_files/bashrc $2/.bashrc
+cp -v ./global_files/tmux.conf $2/.tmux.conf
+sed -i "s/BOXNAME=.*/BOXNAME=$1/" $2/.bashrc
+source $2/overrides
+
+echo ""
+echo "build container image"
+echo "---------------------"
+IMAGE_NAME="$(basename ${2})-image"
+podman build -t $IMAGE_NAME \
+    --build-arg U_ID=$USER_ID \
+    --build-arg G_ID=$GROUP_ID \
+    --build-arg U_NAME=$USER_NAME \
+    $2
+
+echo ""
+echo "create container"
+echo "---------------------"
+podman create -t -i --name $1 \
+    --userns keep-id \
+    --group-add keep-groups \
+    $CODING_DIR \
+    $WORK_DIR \
+    $PORT \
+    $DEVICE \
+    $OPT_ARGS \
+    $IMAGE_NAME
