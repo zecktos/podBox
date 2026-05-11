@@ -2,7 +2,7 @@
 
 USER_NAME="user"
 CODING_DIR="-v $HOME/Coding:/home/$USER_NAME/Coding"
-WRK_DIR="-v $HOME/wrk:/home/$USER_NAME/wrk"
+WORK_DIR="-v $HOME/wrk:/home/$USER_NAME/wrk"
 PORT="-p 1234:1234" 
 DEVICE=""
 USER_ID=$(id -u)
