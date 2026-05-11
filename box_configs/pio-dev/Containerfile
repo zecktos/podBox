@@ -3,7 +3,7 @@ ARG U_ID
 ARG G_ID
 ARG U_NAME
 RUN pacman -Syi --noconfirm
-RUN pacman --noconfirm -S sudo platformio-core platformio-core-udev ccls clang nvim openssl python-pip git tmux unzip wget
+RUN pacman --noconfirm -S sudo platformio-core platformio-core-udev esptool ccls clang nvim openssl python-pip git tmux unzip wget
 RUN groupadd -g $G_ID $U_NAME
 RUN useradd -u $U_ID -g $G_ID -m -s /bin/bash $U_NAME
 RUN echo "$U_NAME  ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers
