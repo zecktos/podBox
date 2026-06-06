@@ -24,6 +24,8 @@ echo "build container image"
 echo "---------------------"
 IMAGE_NAME="$(basename ${2})-image"
 podman build -t $IMAGE_NAME \
+    --pull=newer \
+    --no-cache \
     --build-arg U_ID=$USER_ID \
     --build-arg G_ID=$GROUP_ID \
     --build-arg U_NAME=$USER_NAME \
